@@ -6,13 +6,15 @@
 /*   By: shifterpro <shifterpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:41:30 by shifterpro        #+#    #+#             */
-/*   Updated: 2024/02/29 17:01:41 by shifterpro       ###   ########.fr       */
+/*   Updated: 2024/03/05 16:45:53 by shifterpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ""
 
-/* Vérifie si la map est bien entourée de murs '1' */
+// Vérifie si la map est bien entourée de murs '1'
+// D'abbord toute la première colonne, puis la dernière
+// Appel wall_utils pour vérifier la première et dernière ligne
 int	ft_wall(t_parse *parse)
 {
 	int	i;
@@ -38,6 +40,10 @@ int	ft_wall(t_parse *parse)
 	return (0);
 }
 
+// Si ft_start renvoie 1, alors on est sur le point de départ du perso,
+// on copie '0' à la place
+// Si c'est un espace on copie '1' à la place, sinon on copie str[j]
+// On remplit le reste de la ligne par des '1'
 int	ft_copy_map(char *str, t_parse *parse)
 {
 	static int	i = 0;
@@ -45,7 +51,7 @@ int	ft_copy_map(char *str, t_parse *parse)
 
 	j = 0;
 	parse->map[i] = NULL;
-	if (!(parse->map[i] == malloc(sizeof(char) * parse->size_line + 1)))
+	if (!(parse->map[i] = malloc(sizeof(char) * parse->size_line + 1)))
 		return (0);
 	while (str[j])
 	{
@@ -67,6 +73,11 @@ int	ft_copy_map(char *str, t_parse *parse)
 	return (0);
 }
 
+// Vérifie qu'il y a un '1' ou un '0', qu'on est dans la map
+// Vérifie qu'il n'y a que des caractères autorisés, sinon
+// insidemap pour savoir si on est dans la map, si oui
+// wrongcharmap = 2 et on return 0 et on peut mettre dans ta partie des gestions
+// d'erreur que ça veut dire qu'il y a un caractère non valide dans la map
 int	ft_is_map(char *str, t_parse *parse)
 {
 	int	i;
@@ -94,6 +105,8 @@ int	ft_is_map(char *str, t_parse *parse)
 	return (0);
 }
 
+// Vérifie si la ligne str est une ligne valide de la map
+// Met à jour les valeurs de nb_line et sizeline
 void	ft_map(char *str, t_parse *parse)
 {
 	int		i;
@@ -109,7 +122,7 @@ void	ft_map(char *str, t_parse *parse)
 			return (); //error
 		if ((i = ft_strlen(str)) > ssizeline)
 			ssizeline = i;
-			snb_line = snb_line + 1;
+		snb_line = snb_line + 1;
 	}
 	parse->nb_line = snb_line;
 	parse->sizeline = ssizeline;

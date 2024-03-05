@@ -6,12 +6,17 @@
 /*   By: shifterpro <shifterpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:00:34 by shifterpro        #+#    #+#             */
-/*   Updated: 2024/02/24 13:24:23 by shifterpro       ###   ########.fr       */
+/*   Updated: 2024/03/05 16:22:29 by shifterpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ""
 
+// Avoir les valeurs de la résolution rx et ry
+// Si il y a une virgule dans la ligne -> erreur, si après le R y'a pas un espace -> erreur
+// On zappe tous les espaces tabs etc,
+// On fait atoi normal pour avoir le nombre de la résolution
+// Si y'a des chiffres après on les zappe
 int	ft_atoi2(const char *str, t_parse *parse)
 {
 	int	tot;
@@ -38,6 +43,11 @@ int	ft_atoi2(const char *str, t_parse *parse)
 	return (tot);
 }
 
+// Fonction pour les valeurs de F et C
+// Si après F ou C y'a pas un espace -> erreur
+// Zappe les espacements
+// On extrait le nombre
+// Si la variable check est pas compris entre 0 et 255 -> erreur
 int	ft_atoi3(const char *str, t_parse *parse)
 {
 	int	check;
@@ -67,6 +77,9 @@ int	ft_atoi3(const char *str, t_parse *parse)
 	return (parse->tot);
 }
 
+// S'il y a pas de '.' ou de '/' ou que str <= 2 -> erreur
+// Si y'a pas que des espaces avant le '.' -> erreur
+// Ensuite on copie dans texture le chemin vers la texture
 int	ft_path_texture(char *str, char **texture, t_parse *parse, int j)
 {
 	parse->count2 = 0;
@@ -93,6 +106,8 @@ int	ft_path_texture(char *str, char **texture, t_parse *parse, int j)
 	return (0);
 }
 
+// Fonction pour avoir, avec path_texture, le chemin de chaque texture
+// Si c'est pas une texture ni un des lettres attendues -> erreur
 void	ft_texture(char *str, t_parse *parse)
 {
 	int			i;
@@ -117,6 +132,8 @@ void	ft_texture(char *str, t_parse *parse)
 	j++;
 }
 
+// Fonction n°3, attribue la résolution avec atoi2
+// Ou atoi3 pour F et C
 void	ft_color_resolution(char **str, t_parse *parse)
 {
 	int	i;

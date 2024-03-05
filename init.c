@@ -6,7 +6,7 @@
 /*   By: shifterpro <shifterpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:19:20 by shifterpro        #+#    #+#             */
-/*   Updated: 2024/02/29 17:31:08 by shifterpro       ###   ########.fr       */
+/*   Updated: 2024/03/05 16:20:46 by shifterpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_init_more(t_parse *parse)
 	parse->texture[4].img = NULL;
 }
 
+// Vérifie la syntaxe pour RGB
 void	ft_atoi3_check(const char *str, t_parse *parse)
 {
 	int	i;
@@ -40,7 +41,7 @@ void	ft_atoi3_check(const char *str, t_parse *parse)
 		i++;
 	while ((str[i] < '0' || str[i] > '9') && str[i])
 	{
-		if (str[i] = ',')
+		if (str[i] == ',')
 			j++;
 		i++;
 	}
@@ -50,6 +51,7 @@ void	ft_atoi3_check(const char *str, t_parse *parse)
 		return (); //error
 }
 
+// Compte le nombre de ','
 int	ft_nb_coma(const char *str)
 {
 	int	i;
@@ -66,6 +68,7 @@ int	ft_nb_coma(const char *str)
 	return (j);
 }
 
+// Vérifie si la chaîne caractère est vide 
 int	ft_empty_line(char *str)
 {
 	int	i;

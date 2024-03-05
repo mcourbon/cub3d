@@ -6,12 +6,17 @@
 /*   By: shifterpro <shifterpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 13:24:36 by shifterpro        #+#    #+#             */
-/*   Updated: 2024/02/26 15:41:09 by shifterpro       ###   ########.fr       */
+/*   Updated: 2024/03/05 16:52:53 by shifterpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ""
 
+// get next line stocké dans str
+// check de lignes vides dans le fichier
+// empty_line dans gestion d'erreur -> présence de ligne vide
+// on check si on est bien dans la map, on copie la map
+// on vérifie les murs aussi 
 int	ft_parsing_map(char *file, t_parse *parse)
 {
 	int		fd;
@@ -37,10 +42,11 @@ int	ft_parsing_map(char *file, t_parse *parse)
 		free(str);
 	}
 	close(fd);
-	ft_init_sprite(parse);
+	ft_wall(parse);
 	return (0);
 }
 
+// Fonction n°2, check que c'est bien un fichier et pas un dossier, lis le fichier et appelle les autres fonctions
 void	ft_parsing(char *file, t_parse *parse)
 {
 	int		fd;
@@ -53,12 +59,9 @@ void	ft_parsing(char *file, t_parse *parse)
 		return (); //error c'est un dossier
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (); //error
-	parse->error = 0;
 	while (ret != 0)
 	{
 		ret = get_next_line(fd, &str, parse);
-		if (parse->error == 2)
-			return (); //error du parsing
 		ft_color_resolution(&str, parse);
 		ft_texture(str, parse);
 		ft_map(str, parse);
@@ -70,6 +73,7 @@ void	ft_parsing(char *file, t_parse *parse)
 	ft_parsing_map(file, parse);
 }
 
+// Fonction n°1, check s'il y a bien un '.' et l'extension cub
 int	ft_cub(char *str, t_parse *parse)
 {
 	int	i;
